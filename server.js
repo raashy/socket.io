@@ -1,11 +1,9 @@
-const app = express();
-const server = http.createServer(app);
+import { createServer } from "http";
+import { Server } from "socket.io";
 
-const io = require("socket.io")(server, {
-  cors: {
-    origin: ["http://localhost:5173"],
-  },
-});
+const httpServer = createServer();
+
+const io = new Server(httpServer);
 
 io.on("connection", (socket) => {
   console.log("New client connected");
@@ -16,3 +14,4 @@ io.on("connection", (socket) => {
   })
 });
 
+httpServer.listen(3000);
